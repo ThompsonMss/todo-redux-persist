@@ -1,25 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import { Provider } from 'react-redux';
+import store from './store';
+
+import Home from './pages/Home';
+import Config from './pages/Configurations';
+import Error404 from './pages/Error404';
+
+import Header from './components/Header';
+
+import GlobalStyle from './styles/global';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Router>
+        <Header />
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/Home" component={Home} />
+          <Route path="/Config" component={Config} />
+          <Route component={Error404} />
+        </Switch>
+        <GlobalStyle />
+      </Router>
+    </Provider>
   );
 }
 
